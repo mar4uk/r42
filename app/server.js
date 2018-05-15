@@ -1,23 +1,42 @@
 const fs = require('fs');
 const express = require('express');
-
 const app = express();
-const ReactDOMServer = require('react-dom/server');
-const mustache = require('mustache');
 
-const App = require('./components/app');
 const PORT = process.env.PORT || 3000;
 
-app.use('/dist', express.static('dist'));
+const handleRender = require('./lib/render');
 
-app.get('/', (req, res) => {
-    const content = ReactDOMServer.renderToString(App);
-    const layout = fs.readFileSync('app/layouts/default.html').toString();
+app.use('/dist', express.static('dist', {
+    fallthrough: false
+}));
 
-    res.send(mustache.render(layout, {
-        content
-    }));
+app.use('/favicon.ico', express.static('dist', {
+    fallthrough: false
+}));
+
+app.use((req, res, next) => {
+    const dataContainer = {};
+
+    res.locals.dataContainer = function(...args) {
+        switch (args.length) {
+            case 0:
+                return dataContainer;
+                break;
+
+            default:
+                const data = args[0];
+                Object.keys(data).forEach(function (key) {
+                    dataContainer[key] = data[key];
+                }, this);
+        }
+    };
+
+    next();
 });
+
+app.get('/', require('./controllers/selections-chart'));
+
+app.use(handleRender);
 
 app.listen(PORT, () => {
     console.log(`Application was started on http://localhost:${PORT}`);
