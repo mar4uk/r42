@@ -1,0 +1,34 @@
+{
+  "name": "r42",
+  "version": "1.0.0",
+  "description": "chart supports rendering real-time data",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "clean": "rm -rf node_modules dist",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mar4uk/r42.git"
+  },
+  "author": "Irina Marchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mar4uk/r42/issues"
+  },
+  "homepage": "https://github.com/mar4uk/r42#readme",
+  "dependencies": {
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.4",
+    "babel-preset-react": "6.24.1",
+    "express": "4.16.3",
+    "mustache": "2.3.0",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "webpack": "4.8.3",
+    "webpack-cli": "2.1.3",
+    "webpack-node-externals": "1.7.2"
+  }
+}
