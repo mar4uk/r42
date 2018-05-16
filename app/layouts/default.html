@@ -2,6 +2,9 @@
 <html>
     <head></head>
     <body>
+        <script>
+            window.__INITIAL_STATE__ = '{{state}}'.replace(/</g, '\\u003c')
+        </script>
         <script defer src="/dist/client.js"></script>
         <div id="app-container">{{{content}}}</div>
     </body>
