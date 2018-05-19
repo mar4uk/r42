@@ -1,12 +1,16 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Bar} = require('react-chartjs-2');
 const moment = require('moment');
 
+const chartjs = require('react-chartjs-2');
+const {Bar} = chartjs;
+
 const options = {
+    animation: false,
     scales: {
         xAxes: [{
             type: 'time',
+            stacked: true,
             time: {
                 displayFormats: {
                     'millisecond': 'MMM DD',
@@ -20,7 +24,7 @@ const options = {
                     'year': 'MMM DD',
                 }
             }
-      }]
+        }]
     }
 };
 
@@ -65,12 +69,12 @@ class Chart extends React.Component {
             <div
                 style={{
                     position: 'relative',
-                    width: '500px'
+                    width: '800px'
                 }}
             >
                 <Bar
-                    width={500}
-                    height={300}
+                    width={800}
+                    height={500}
                     data={data}
                     options={options}
                 />
