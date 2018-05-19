@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', require('./controllers/selections-chart'));
+app.get('/selections', require('./controllers/selections'));
 
 app.use(handleRender);
 
