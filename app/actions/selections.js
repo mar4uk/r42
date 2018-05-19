@@ -5,7 +5,7 @@ module.exports = {
 
     loadSelections: function () {
         return (dispatch) => {
-            return fetch('/selections', {
+            return fetch('/selections?days=30', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }

@@ -62,8 +62,15 @@ class Chart extends React.Component {
         const data = getSelectionsData(selections);
 
         return (
-            <div>
+            <div
+                style={{
+                    position: 'relative',
+                    width: '500px'
+                }}
+            >
                 <Bar
+                    width={500}
+                    height={300}
                     data={data}
                     options={options}
                 />
