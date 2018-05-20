@@ -7,16 +7,12 @@ const {
 } = require('app/actions/selections');
 
 class MainPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this._receiveSelections = this._receiveSelections.bind(this);
-    }
-
     componentDidMount() {
-        setInterval(() => {
-            this._receiveSelections();
-        }, 1000);
+        const socket = io();
+
+        socket.on('selection_added', ({selection}) => {
+            this.props.dispatch(loadSelections(selection));
+        });
     }
 
     render() {
@@ -26,10 +22,6 @@ class MainPage extends React.Component {
             </div>
         );
     }
-
-    _receiveSelections() {
-        this.props.dispatch(loadSelections());
-    }
 }
 
 module.exports = connect((state) => {
@@ -37,4 +29,3 @@ module.exports = connect((state) => {
         selections: state.selections
     }
 })(MainPage);
-

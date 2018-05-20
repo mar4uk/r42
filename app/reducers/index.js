@@ -1,3 +1,6 @@
+const update = require('immutability-helper');
+const {CHART_VISIBLE_PERIOD_DAYS} = require('app/constants');
+
 const initialState = {
     selections: []
 };
@@ -5,10 +8,17 @@ const initialState = {
 const {LOAD_SELECTIONS} = require('app/actions/selections');
 
 module.exports = (state = initialState, action) => {
-    switch (action.type) {
+    const {
+        type,
+        payload
+    } = action;
+
+    switch (type) {
         case LOAD_SELECTIONS: {
-            return Object.assign({}, state, {
-                selections: action.payload.selections
+            const selections = state.selections.concat(payload.selection).slice(-CHART_VISIBLE_PERIOD_DAYS);
+
+            return update(state, {
+                selections: {$set: selections}
             });
 
             break;

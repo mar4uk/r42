@@ -14,8 +14,12 @@ function handleRender(req, res) {
     }
 
     const dataContainer = res.locals.dataContainer();
-    const Page = require('app/pages/' + dataContainer.page + '/index.jsx');
 
+    if (!dataContainer.page)  {
+        return;
+    }
+
+    const Page = require('app/pages/' + dataContainer.page + '/index.jsx');
     const store = createStore(chartApp, applyMiddleware(thunk));
 
     const content = ReactDOMServer.renderToString(
@@ -24,7 +28,6 @@ function handleRender(req, res) {
         </Provider>
     );
     const layout = fs.readFileSync('app/layouts/default.html').toString();
-
     const initialState = store.getState();
 
     res.send(mustache.render(layout, {

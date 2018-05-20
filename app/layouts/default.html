@@ -3,9 +3,10 @@
     <head></head>
     <body>
         <script>
-            window.__INITIAL_STATE__ = '{{state}}'.replace(/</g, '\\u003c')
+            window.__INITIAL_STATE__ = '{{state}}';
         </script>
         <script defer src="/dist/client.js"></script>
         <div id="app-container">{{{content}}}</div>
+        <script src="/socket.io/socket.io.js"></script>
     </body>
 </html>

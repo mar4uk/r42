@@ -1,39 +1,29 @@
 const moment = require('moment');
 
-function random(min, max) {
-    return Math.random() * (max - min) + min;
-}
+const {
+    generateSelection,
+    initSelections
+} = require('./helpers');
 
-function generateSelection(date) {
-    return {
-        key: {
-            segmentNumber: Math.round(random(0, 10000000)),
-            timestamp: date.valueOf()
-        },
-        totalCallsAdded: Math.round(random(1, 100)),
-        totalCallsRemoved: -Math.round(random(1, 100)),
-        segmentSize: Math.round(random(1, 100))
-    }
-}
+const {CHART_VISIBLE_PERIOD_DAYS} = require('app/constants');
 
-function initSelections() {
-    let date = moment().subtract(1, 'month');
-    const selections = [];
+const selections = initSelections(CHART_VISIBLE_PERIOD_DAYS);
 
-    for (let i = 0; i < 30; i++) {
-        selections.push(generateSelection(date));
-        date = moment(date).add(1, 'day');
-    }
-
-    return selections;
-}
-
-const selections = initSelections();
+let listener;
 
 function genereteSelections() {
     let date = moment();
+
     setInterval(() => {
-        selections.push(generateSelection(date));
+        const selection = generateSelection(date);
+
+        if (listener) {
+            listener.emit('selection_added', {
+                selection
+            });
+        }
+
+        selections.push(selection);
         date = moment(date).add(1, 'day');
     }, 2000);
 }
@@ -41,9 +31,10 @@ function genereteSelections() {
 genereteSelections();
 
 function getSelections(options = {}) {
-    const {days} = options;
+    const {io} = options;
+    listener = io;
 
-    return Promise.resolve(selections.slice(-Number(days)));
+    return Promise.resolve(selections.slice(-Number(CHART_VISIBLE_PERIOD_DAYS)));
 }
 
 module.exports = {
