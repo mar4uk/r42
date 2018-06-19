@@ -7,6 +7,14 @@ const io = require('socket.io')(server);
 
 const PORT = process.env.PORT || 3000;
 
+io.on('connection', socket => {
+    console.log('connected');
+
+    socket.on('disconnect', disconnect => {
+        console.log('disconnected');
+    });
+});
+
 const handleRender = require('./lib/render');
 const dataContainer = require('./lib/data-container');
 
@@ -16,7 +24,7 @@ app.use('/dist', express.static('dist', {
 
 app.use(dataContainer);
 
-app.get('/', require('./controllers/selections-chart')(io));
+app.get('/', require('./controllers/selections-page')(io));
 
 app.use(handleRender);
 
