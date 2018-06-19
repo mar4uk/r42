@@ -1,7 +1,7 @@
 const selectionsProvider = require('app/data-providers/selections');
 
 module.exports = function(req, res, next) {
-    const days = req.query.days;
+    const {days} = req.query;
 
     selectionsProvider.getSelections({
         days

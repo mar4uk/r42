@@ -25,6 +25,7 @@ app.use('/dist', express.static('dist', {
 app.use(dataContainer);
 
 app.get('/', require('./controllers/selections-page')(io));
+app.get('/selections', require('./controllers/selections'));
 
 app.use(handleRender);
 

@@ -7,13 +7,21 @@ const Button = require('app/components/button');
 const socket = openSocket('http://localhost:3000');
 
 const {
-    loadSelections
+    loadSelections,
+    fetchSelections
 } = require('app/actions/selections');
 
 class MainPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this._onStartClick = this._onStartClick.bind(this);
+        this._onStopClick = this._onStopClick.bind(this);
+    }
+
     componentDidMount() {
-        socket.on('selection_added', ({selection}) => {
-            this.props.dispatch(loadSelections(selection));
+        socket.on('selections_added', ({selections}) => {
+            this.props.dispatch(loadSelections(selections));
         });
     }
 
@@ -32,6 +40,7 @@ class MainPage extends React.Component {
     }
 
     _onStartClick() {
+        this.props.dispatch(fetchSelections());
         socket.open();
     }
 

@@ -18,8 +18,8 @@ function genereteSelections() {
         const selection = generateSelection(date);
 
         if (listener) {
-            listener.emit('selection_added', {
-                selection
+            listener.emit('selections_added', {
+                selections: [selection]
             });
         }
 
@@ -32,7 +32,7 @@ genereteSelections();
 
 function getSelections(options = {}) {
     const {io} = options;
-    listener = io;
+    listener = listener || io;
 
     return Promise.resolve(selections.slice(-Number(CHART_VISIBLE_PERIOD_DAYS)));
 }

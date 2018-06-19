@@ -15,7 +15,7 @@ module.exports = (state = initialState, action) => {
 
     switch (type) {
         case LOAD_SELECTIONS: {
-            const selections = state.selections.concat(payload.selection).slice(-CHART_VISIBLE_PERIOD_DAYS);
+            const selections = state.selections.concat(payload.selections).slice(-CHART_VISIBLE_PERIOD_DAYS);
 
             return update(state, {
                 selections: {$set: selections}

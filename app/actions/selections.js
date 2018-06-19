@@ -1,14 +1,26 @@
 const LOAD_SELECTIONS = 'LOAD_SELECTIONS';
 
-module.exports = {
+const actions = {
     LOAD_SELECTIONS,
 
-    loadSelections: function (selection) {
+    loadSelections: (selections) => {
         return {
             type: LOAD_SELECTIONS,
             payload: {
-                selection
+                selections
             }
+        }
+    },
+
+    fetchSelections: () => {
+        return (dispatch) => {
+            fetch('/selections')
+                .then(res => res.json())
+                .then(({selections}) => {
+                    return dispatch(actions.loadSelections(selections))
+                });
         }
     }
 }
+
+module.exports = actions;
