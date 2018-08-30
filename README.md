@@ -1,12 +1,24 @@
-# r42
-Chart supports rendering real-time data
+Chart supports rendering real-time data using mock data.
+======
 
-### How to start
-```
+How to build and start
+----------------
+Please use Node.js 8.
+
+```bash
 nvm use
 npm install
 npm run build
-npm start
 ```
 
-By default application will be started on http://localhost:3000
+Run tests
+
+```bash
+npm run test
+```
+
+Start the server. Server will start on http://localhost:3000
+
+```bash
+npm start
+```

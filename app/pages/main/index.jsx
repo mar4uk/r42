@@ -29,10 +29,10 @@ class MainPage extends React.Component {
         return (
             <div>
                 <Button onClick={this._onStartClick}>
-                    Старт
+                    Start
                 </Button>
                 <Button onClick={this._onStopClick}>
-                    Стоп
+                    Stop
                 </Button>
                 <Chart selections={this.props.selections} />
             </div>
