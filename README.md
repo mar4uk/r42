@@ -1,6 +1,8 @@
 Chart supports rendering real-time data using mock data.
 ======
 
+![Screenshot](./screenshot.jpg)
+
 How to build and start
 ----------------
 Please use Node.js 8.
